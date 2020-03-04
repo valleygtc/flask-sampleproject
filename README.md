@@ -12,7 +12,7 @@ flask web app 样板程序。使用 Docker 进行构建和分发。
 - 部署： waitress
 
 
-# 手动部署
+# 手动部署运行
 ```bash
 $ git clone <repo>
 $ cd flask-sampleproject
@@ -34,7 +34,7 @@ $ flask run
 $ python run.py
 ```
 
-# Docker
+# 使用 Docker 部署运行
 ## 构建镜像：
 ```bash
 $ docker image build --tag=flask-sampleproject .
@@ -53,9 +53,23 @@ $ docker run \
   -d flask-sampleproject
 ```
 
-## 使用 docker-compose 启动：
+## 使用 docker-compose 启动（推荐）：
 ```bash
 $ docker-compose up -d
+
+# 创建数据库表
+$ docker-compose exec flask-sampleproject flask create_table
+
+# 测试 HTTP
+$ curl http://127.0.0.1:5000/
+Hello, World!
+
+$ curl http://127.0.0.1:5000/students/
+{"data":[]}
+
+# 测试 CLI：
+$ docker-compose exec flask-sampleproject flask hello
+Hello, World!
 ```
 
 
