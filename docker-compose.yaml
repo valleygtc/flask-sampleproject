@@ -1,0 +1,22 @@
+# WARNING:
+# 为了方便演示，本仓库的数据库密码声明直接放在了此文件中，且已经加入了 git 仓库。
+# 在实际操作中，你应该把这个文件加入 .gitignore 中，在部署时手动填写。
+# 或者更推荐的方式是将敏感数据放到外部文件中，然后使用 env_file 参数导入。
+
+version: "3.7"
+services:
+  flask-sampleproject:
+    image: flask-sampleproject
+    environment:
+      - DATABASE_URI=mysql+mysqlconnector://root:foopassword@mysqld/flask_sampleproject?charset=utf8 # WARNING: You should change it!
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./log:/flask-sampleproject/log
+  mysqld:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=foopassword # WARNING: You should change it!
+      - MYSQL_DATABASE=flask_sampleproject
+    volumes:
+      - ./data:/var/lib/mysql
